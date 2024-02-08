@@ -76,22 +76,16 @@
 
         function crocodileGame() {
 
-            if (OperatorHolder == '=' && number1 == number2) {
-                Points++;
-                resetNumber();
-            }
-            else if (OperatorHolder == '<' && number1 < number2) {
-                Points++;
-                resetNumber();
-            }
-            else if (OperatorHolder == '>' && number1 > number2) {
-                Points++;
-                resetNumber();
-            }
+            if (OperatorHolder == '=' && number1 == number2) Points++;
+            else if (OperatorHolder == '<' && number1 < number2) Points++;
+            else if (OperatorHolder == '>' && number1 > number2) Points++;
             else {
                 Points--;
+                makeViewHtml();
+                return;
             }
 
+            resetNumber();
             makeViewHtml();
         }
 
