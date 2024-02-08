@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave - Krokodillespill</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        let OperatorHolder = '==';
+        let Points = 0;
+        let number1 = 0;
+        let number2 = 0;
+        resetNumber();
+        makeViewHtml();
+
+        function makeViewHtml() {
+            document.getElementById('app').innerHTML = /*HTML*/ `
+        <div class=".crocodilegame">
+            <img class="crocodile" src="img/CrocodileHoldingImg.png" alt="">
+            <div class="textcontainer centertext">
+                ${makePointsHtml()}
+                ${makeNumberHtml(number1)}
+                ${makeInputHtml('updateInputOutput')}
+                ${makeNumberHtml(number2)}
+                ${makeTextHtml('textbox', 'Skriv inn riktig Operator for å få poeng!')}
+                ${makeButtonHtml('Submit', 'crocodileGame', 'button1')}
+                ${makeButtonHtml('Reset', 'resetNumber', 'button2')}
+                ${makeButtonHtml('Submit', 'crocodileGame', 'button1')}
+                ${makeButtonHtml('Reset Game', 'resetGame', 'button3')}
+                </div>
+        </div >
+            `;
+        }
+
+        function makeTextHtml(styleclass, text) {
+            return /* html */ `
+            <div class="${styleclass}">${text}</div >
+            `;
+        }
+
+        function makePointsHtml() {
+            return /* html */ `
+            <div>Poeng:${Points}</div >
+            `;
+        }
+
+        function makeNumberHtml(text) {
+            return /* html */ `
+            <div>${text}</div>
+            `;
+        }
+
+        function makeInputHtml(onchangefunction) {
+            return /* html */ `
+            <input id="inputField" type="text" onchange="${onchangefunction}()">
+            `;
+        }
+
+        function makeButtonHtml(text, onclickfunction, styleclass) {
+            return /* html */ `
+            <button class="${styleclass}" onclick="${onclickfunction}()">${text}</button>
+            `;
+        }
+
+        function updateInputOutput() {
+            OperatorHolder = document.getElementById('inputField').value;
+            console.log(OperatorHolder);
+        }
+
+        function crocodileGame() {
+
+            if (OperatorHolder == '=' && number1 == number2) {
+                Points++;
+                resetNumber();
+            }
+            else if (OperatorHolder == '<' && number1 < number2) {
+                Points++;
+                resetNumber();
+            }
+            else if (OperatorHolder == '>' && number1 > number2) {
+                Points++;
+                resetNumber();
+            }
+            else {
+                Points--;
+            }
+
+            makeViewHtml();
+        }
+
+        function Operator() {
+            return OperatorHolder;
+        }
+
+        function resetNumber() {
+            number1 = Math.floor(Math.random() * 10);
+            number2 = Math.floor(Math.random() * 10);
+            makeViewHtml();
+        }
+
+        function resetGame() {
+            location.reload();
+        }
+
+    </script>
+
+</body>
+
+</html>/
